@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const User = require('../models/Creek');
+const User = require('../models/User');
 const db = require('../db');
 
 const userSeed = [
