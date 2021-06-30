@@ -21,6 +21,7 @@ server.use("*", (req, res, next) => {
 });
 
 server.use((error, req, res, next) => {
+  console.log("error--> ", error.message);
   return res.status(error.status || 500).json(error);
 });
 

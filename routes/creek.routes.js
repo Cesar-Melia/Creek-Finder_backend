@@ -50,32 +50,15 @@ router.delete("/delete/:id", async (req, res, next) => {
 
     console.log("id: ", id);
 
-    const deleted = await Creek.findByIdAndDelete(id);
+    const deletedCreek = await Creek.findByIdAndDelete(id);
 
-    if (deleted) response = "Creek deleted from db";
-    else response = "Can't find a creek whit this id";
-
-    return res.status(200).json(response);
-  } catch (error) {
-    return next(error);
-  }
-});
-
-// eliminar producto
-router.get("/delete/:id", async (req, res, next) => {
-  try {
-    const { id } = req.params;
-
-    const deleted = await Product.findByIdAndDelete(id);
-
-    if (deleted) {
-      const products = await Product.find();
-      return res.render("products", { products, deleted: true });
+    let response = "";
+    if (deletedCreek) {
+      response = "creek deleted";
     } else {
-      const error = new Error("Can't find a product with this id. ¿Are you sure?");
-      error.status = 400;
-      return res.render("error", { message: error.message, status: error.status });
+      response = "creek not found";
     }
+    return res.status(200).json(response);
   } catch (error) {
     return next(error);
   }

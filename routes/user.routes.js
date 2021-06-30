@@ -1,3 +1,4 @@
+const { response } = require("express");
 const express = require("express");
 const router = express.Router();
 const Creek = require("../models/Creek");
@@ -39,6 +40,13 @@ router.delete("/delete/:id", async (req, res, next) => {
   try {
     const { id } = req.params;
     const deletedUser = await User.findByIdAndDelete(id);
+    let response = "";
+    if (deletedUser) {
+      response = "user deleted";
+    } else {
+      response = "user not found";
+    }
+    return res.json(response);
   } catch (error) {
     return next(error);
   }
