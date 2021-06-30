@@ -116,7 +116,7 @@ router.put("/edit/:id", async (req, res, next) => {
     console.log(req.body);
     const editedCreek = await Creek.findByIdAndUpdate(id, uploadFields, { new: true });
 
-    return res.status(200).json(editedCreek);
+    return res.status(201).json(editedCreek);
   } catch (error) {
     return next(error);
   }

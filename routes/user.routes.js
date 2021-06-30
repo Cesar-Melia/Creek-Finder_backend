@@ -22,4 +22,26 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
+router.put("/edit/:id", async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { userName, password, email } = req.body;
+    const user = { userName, password, email };
+    const editedUser = await User.findByIdAndUpdate(id, user, { new: true });
+    return res.status(201).json(editedUser);
+  } catch (error) {
+    console.log("error", error.message);
+    return next(error);
+  }
+});
+
+router.delete("/delete/:id", async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const deletedUser = await User.findByIdAndDelete(id);
+  } catch (error) {
+    return next(error);
+  }
+});
+
 module.exports = router;
