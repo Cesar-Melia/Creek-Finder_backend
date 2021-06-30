@@ -1,20 +1,22 @@
-const express = require('express');
-const db = require('./db');
+const express = require("express");
+const db = require("./db");
 const router = express.Router();
 
-const indexRoutes = require('./routes/index.routes');
-const creekRoutes = require('./routes/creek.routes');
+const indexRoutes = require("./routes/index.routes");
+const creekRoutes = require("./routes/creek.routes");
+const userRoutes = require("./routes/user.routes");
 
 const PORT = 3600;
 db.connect();
 
 const server = express();
 
-server.use('/', indexRoutes);
-server.use('/creeks', creekRoutes);
+server.use("/", indexRoutes);
+server.use("/creeks", creekRoutes);
+server.use("/users", userRoutes);
 
-server.use('*', (req, res, next) => {
-  const error = new Error('Page not found');
+server.use("*", (req, res, next) => {
+  const error = new Error("Page not found");
   return res.status(404).json(error);
 });
 
