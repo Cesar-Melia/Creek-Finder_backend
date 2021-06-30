@@ -17,8 +17,9 @@ router.get('/', async (req, res, next) => {
 router.post('/create', async (req, res, next) => {
   try {
     console.log('req.body: ', req.body);
+  
 
-    const { name, province, type, description, lat, lng } = req.body;
+    const {name, province, type, description, lat, lng} = req.body;
 
     // const image = req.fileUrl ? req.fileUrl : '';
 
@@ -72,4 +73,5 @@ router.delete('/delete/:id', async (req, res, next) => {
     return next(error);
   }
 });
+
 module.exports = router;
