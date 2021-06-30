@@ -1,12 +1,11 @@
-const express = require("express");
-
-const Creek = require("../models/Creek");
+const express = require('express');
+const Creek = require('../models/Creek');
 const router = express.Router();
+const { upload, uploadToCloudinary } = require('../middlewares/file.middleware');
 
-router.get("/", async (req, res, next) => {
+router.get('/', async (req, res, next) => {
   try {
     const creeks = await Creek.find();
-    console.log("Creeks : ", creeks);
 
     return res.status(200).json(creeks);
   } catch (error) {
@@ -14,21 +13,20 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-//////////////////////////////////////////////////////////TODO
-router.post("/create", async (req, res, next) => {
-  try {
-    console.log("req.body: ", req.body);
+router.post('/create', [upload.single('img'), uploadToCloudinary], async (req, res, next) => {
+  console.log('Entra hasta aqui');
 
+  try {
     const { name, province, type, description, lat, lng } = req.body;
 
-    // const image = req.fileUrl ? req.fileUrl : '';
+    const img = req.fileUrl ? req.fileUrl : '';
 
     const newCreek = new Creek({
       name,
+      img,
       province,
       type,
       description,
-      comments,
       lat,
       lng,
     });
@@ -39,24 +37,23 @@ router.post("/create", async (req, res, next) => {
 
     return res.status(201).json(createdCreek);
   } catch (error) {
-    console.log(error);
     return next(error);
   }
 });
 
-router.delete("/delete/:id", async (req, res, next) => {
+router.delete('/delete/:id', async (req, res, next) => {
   try {
     const { id } = req.params;
 
-    console.log("id: ", id);
+    console.log('id: ', id);
 
     const deletedCreek = await Creek.findByIdAndDelete(id);
 
-    let response = "";
+    let response = '';
     if (deletedCreek) {
-      response = "creek deleted";
+      response = 'creek deleted';
     } else {
-      response = "creek not found";
+      response = 'creek not found';
     }
     return res.status(200).json(response);
   } catch (error) {
@@ -66,13 +63,11 @@ router.delete("/delete/:id", async (req, res, next) => {
 
 // upload
 
-router.put("/edit/:id", async (req, res, next) => {
+router.put('/edit/:id', [upload.single('image'), uploadToCloudinary], async (req, res, next) => {
   const { id } = req.params;
-  console.log("id: ", id);
-  console.log("el req", req);
   const { name, province, type, description, lat, lng } = req.body;
   const uploadFields = {};
-  console.log("pasa el request body", req.body);
+
   if (name) {
     uploadFields.name = name;
   }
@@ -105,16 +100,17 @@ router.put("/edit/:id", async (req, res, next) => {
   }
 });
 
-router.get("/:id", async (req, res, next) => {
+router.get('/:id', async (req, res, next) => {
   try {
     const { id } = req.params;
 
     const creek = await Creek.findById(id);
-    console.log("Creeks : ", creek);
+    console.log('Creeks : ', creek);
 
     return res.status(200).json(creek);
   } catch (error) {
     return next(error);
   }
 });
+
 module.exports = router;
