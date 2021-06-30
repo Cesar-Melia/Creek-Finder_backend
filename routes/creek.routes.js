@@ -1,5 +1,4 @@
 const express = require('express');
-const Creek = require('../models/Creek');
 const router = express.Router();
 const { upload, uploadToCloudinary } = require('../middlewares/file.middleware');
 const { creekGet, createCreek, deleteCreek, creekEdit, creekGetById } = require('../controllers/creeks.controller');
