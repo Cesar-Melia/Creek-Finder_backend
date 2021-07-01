@@ -1,0 +1,46 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register</title>
+    <link rel="stylesheet" href="/styles/styles.css" />
+    <link rel="stylesheet" href="/styles/styles.css" />
+    <link rel="stylesheet" href="/styles/general.css" />
+  </head>
+
+  <body>
+
+    <h1 class="title">Registro</h1>
+
+    <nav>
+      <a href="/">Inicio</a>
+      <a href="/auth/login">Login</a>
+
+    </nav>
+
+    <form action="/auth/register" method="POST">
+
+      <label>
+        <p>Email</p>
+        <input name="email" type="email" required placeholder="email" />
+      </label>
+
+      <label>
+        <p>nombre y apellidos</p>
+        <input name="fullName" type="text" required placeholder="nombre completo" />
+      </label>
+
+      <label>
+        <p>password</p>
+        <input name="password" type="password" required placeholder="password" />
+      </label>
+
+      <input type="submit" value="Registrarme" />
+
+      {{#if error}}
+        <div style="color: red">{{error}}</div>
+      {{/if}}
+    </form>
+  </body>
+</html>
