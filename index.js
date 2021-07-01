@@ -1,24 +1,26 @@
 const express = require("express");
 
+const dotenv = require("dotenv");
+dotenv.config();
 const path = require("path");
 
+const db = require("./db");
 const router = express.Router();
 const passport = require("passport");
 
 require("./auth");
 
-const db = require("./db");
 const indexRoutes = require("./routes/index.routes");
 const creekRoutes = require("./routes/creek.routes");
 const userRoutes = require("./routes/user.routes");
 const authRoutes = require("./routes/auth.routes");
 
-const PORT = 3600;
+const PORT = process.env.PORT || 3000;
+
 db.connect();
 
 const server = express();
 
-// eliminar para coger commit
 server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
 

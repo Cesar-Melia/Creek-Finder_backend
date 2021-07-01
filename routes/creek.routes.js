@@ -1,120 +1,16 @@
-const express = require("express");
-
-const Creek = require("../models/Creek");
+const express = require('express');
 const router = express.Router();
+const { upload, uploadToCloudinary } = require('../middlewares/file.middleware');
+const { creekGet, createCreek, deleteCreek, creekEdit, creekGetById } = require('../controllers/creeks.controller');
 
-router.get("/", async (req, res, next) => {
-  try {
-    const creeks = await Creek.find();
-    console.log("Creeks : ", creeks);
+router.get('/', creekGet);
 
-    return res.status(200).json(creeks);
-  } catch (error) {
-    return next(error);
-  }
-});
+router.post('/create', [upload.single('img'), uploadToCloudinary], createCreek);
 
-//////////////////////////////////////////////////////////TODO
-router.post("/create", async (req, res, next) => {
-  try {
-    console.log("req.body: ", req.body);
+router.delete('/delete/:id', deleteCreek);
 
-    const { name, province, type, description, lat, lng } = req.body;
+router.put('/edit/:id', [upload.single('image'), uploadToCloudinary], creekEdit);
 
-    // const image = req.fileUrl ? req.fileUrl : '';
+router.get('/:id', creekGetById);
 
-    const newCreek = new Creek({
-      name,
-      province,
-      type,
-      description,
-      comments,
-      lat,
-      lng,
-    });
-
-    const createdCreek = await newCreek.save();
-
-    console.log(createdCreek);
-
-    return res.status(201).json(createdCreek);
-  } catch (error) {
-    console.log(error);
-    return next(error);
-  }
-});
-
-router.delete("/delete/:id", async (req, res, next) => {
-  try {
-    const { id } = req.params;
-
-    console.log("id: ", id);
-
-    const deletedCreek = await Creek.findByIdAndDelete(id);
-
-    let response = "";
-    if (deletedCreek) {
-      response = "creek deleted";
-    } else {
-      response = "creek not found";
-    }
-    return res.status(200).json(response);
-  } catch (error) {
-    return next(error);
-  }
-});
-
-// upload
-
-router.put("/edit/:id", async (req, res, next) => {
-  const { id } = req.params;
-  console.log("id: ", id);
-  console.log("el req", req);
-  const { name, province, type, description, lat, lng } = req.body;
-  const uploadFields = {};
-  console.log("pasa el request body", req.body);
-  if (name) {
-    uploadFields.name = name;
-  }
-
-  if (province) {
-    uploadFields.province = province;
-  }
-  if (type) {
-    uploadFields.type = type;
-  }
-  if (description) {
-    uploadFields.description = description;
-  }
-
-  if (lat) {
-    uploadFields.lat = lat;
-  }
-
-  if (lng) {
-    uploadFields.lng = lng;
-  }
-
-  try {
-    console.log(req.body);
-    const editedCreek = await Creek.findByIdAndUpdate(id, uploadFields, { new: true });
-
-    return res.status(201).json(editedCreek);
-  } catch (error) {
-    return next(error);
-  }
-});
-
-router.get("/:id", async (req, res, next) => {
-  try {
-    const { id } = req.params;
-
-    const creek = await Creek.findById(id);
-    console.log("Creeks : ", creek);
-
-    return res.status(200).json(creek);
-  } catch (error) {
-    return next(error);
-  }
-});
 module.exports = router;
