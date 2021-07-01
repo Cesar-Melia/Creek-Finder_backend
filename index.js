@@ -1,19 +1,34 @@
 const express = require("express");
-const db = require("./db");
-const router = express.Router();
 
+const path = require("path");
+
+const router = express.Router();
+const passport = require("passport");
+
+require("./auth");
+
+const db = require("./db");
 const indexRoutes = require("./routes/index.routes");
 const creekRoutes = require("./routes/creek.routes");
 const userRoutes = require("./routes/user.routes");
+const authRoutes = require("./routes/auth.routes");
 
 const PORT = 3600;
 db.connect();
 
 const server = express();
 
+// eliminar para coger commit
+server.use(express.json());
+server.use(express.urlencoded({ extended: true }));
+
+server.set("views", path.join(__dirname, "views"));
+server.set("view engine", "hbs");
+
 server.use("/", indexRoutes);
 server.use("/creeks", creekRoutes);
 server.use("/users", userRoutes);
+server.use("/auth", authRoutes);
 
 server.use("*", (req, res, next) => {
   const error = new Error("Page not found");
