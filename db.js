@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 require('dotenv').config();
 
-const DB_URL = process.env.DB_URL; //'mongodb://localhost:27017/creek-finder';
+const DB_URL = 'mongodb://localhost:27017/creek-finder'; //process.env.DB_URL;
 
 const connect = async () => {
   try {
