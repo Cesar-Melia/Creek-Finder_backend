@@ -15,11 +15,8 @@
     "bcrypt": "^5.0.1",
     "body-parser": "^1.19.0",
     "cloudinary": "^1.26.1",
-<<<<<<< HEAD
     "connect-mongo": "^4.4.1",
-=======
     "cors": "^2.8.5",
->>>>>>> 3e61ba1f800f62abf18adf25f9a4eb59f1cab63e
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "express-session": "^1.17.2",
