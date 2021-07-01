@@ -1,20 +1,22 @@
-const express = require("express");
+const express = require('express');
+const cors = require('cors');
 
-const dotenv = require("dotenv");
-const path = require("path");
+const dotenv = require('dotenv');
+dotenv.config();
+const path = require('path');
 
-const db = require("./db");
+const db = require('./db');
 const router = express.Router();
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
 const passport = require("passport");
 
-require("./auth");
+require('./auth');
 
-const indexRoutes = require("./routes/index.routes");
-const creekRoutes = require("./routes/creek.routes");
-const userRoutes = require("./routes/user.routes");
-const authRoutes = require("./routes/auth.routes");
+const indexRoutes = require('./routes/index.routes');
+const creekRoutes = require('./routes/creek.routes');
+const userRoutes = require('./routes/user.routes');
+const authRoutes = require('./routes/auth.routes');
 
 const PORT = process.env.PORT || 3000;
 
@@ -22,7 +24,6 @@ dotenv.config();
 db.connect();
 
 const server = express();
-
 server.use(
   session({
     secret: "SESSION_SECRET",
@@ -38,24 +39,39 @@ server.use(
 server.use(passport.initialize());
 server.use(passport.session());
 
+
+server.use((req, res, next) => {
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+  res.header('Access-Control-Allow-Credentials', true);
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
+  next();
+});
+
+server.use(
+  cors({
+    origin: ['http://localhost:3000', 'http://localhost:3500'],
+    credentials: true,
+  })
+);
+
 server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
 
-server.set("views", path.join(__dirname, "test_views"));
-server.set("view engine", "hbs");
+server.set('views', path.join(__dirname, 'views'));
+server.set('view engine', 'hbs');
 
-server.use("/", indexRoutes);
-server.use("/creeks", creekRoutes);
-server.use("/users", userRoutes);
-server.use("/auth", authRoutes);
+server.use('/', indexRoutes);
+server.use('/creeks', creekRoutes);
+server.use('/users', userRoutes);
+server.use('/auth', authRoutes);
 
-server.use("*", (req, res, next) => {
-  const error = new Error("Page not found");
+server.use('*', (req, res, next) => {
+  const error = new Error('Page not found');
   return res.status(404).json(error);
 });
 
 server.use((error, req, res, next) => {
-  console.log("error--> ", error);
+  console.log('error--> ', error.message);
   return res.status(error.status || 500).json(error);
 });
 
