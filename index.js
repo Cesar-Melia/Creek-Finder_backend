@@ -7,7 +7,9 @@ const path = require('path');
 
 const db = require('./db');
 const router = express.Router();
-const passport = require('passport');
+const session = require("express-session");
+const MongoStore = require("connect-mongo");
+const passport = require("passport");
 
 require('./auth');
 
@@ -18,9 +20,25 @@ const authRoutes = require('./routes/auth.routes');
 
 const PORT = process.env.PORT || 3000;
 
+dotenv.config();
 db.connect();
 
 const server = express();
+server.use(
+  session({
+    secret: "SESSION_SECRET",
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      maxAge: 1 * 24 * 60 * 60 * 1000,
+    },
+    store: MongoStore.create({ mongoUrl: db.DB_URL }),
+  })
+);
+
+server.use(passport.initialize());
+server.use(passport.session());
+
 
 server.use((req, res, next) => {
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
