@@ -5,6 +5,8 @@ const path = require("path");
 
 const db = require("./db");
 const router = express.Router();
+const session = require("express-session");
+const MongoStore = require("connect-mongo");
 const passport = require("passport");
 
 require("./auth");
@@ -21,10 +23,25 @@ db.connect();
 
 const server = express();
 
+server.use(
+  session({
+    secret: "SESSION_SECRET",
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      maxAge: 1 * 24 * 60 * 60 * 1000,
+    },
+    store: MongoStore.create({ mongoUrl: db.DB_URL }),
+  })
+);
+
+server.use(passport.initialize());
+server.use(passport.session());
+
 server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
 
-server.set("views", path.join(__dirname, "views"));
+server.set("views", path.join(__dirname, "test_views"));
 server.set("view engine", "hbs");
 
 server.use("/", indexRoutes);
@@ -38,7 +55,7 @@ server.use("*", (req, res, next) => {
 });
 
 server.use((error, req, res, next) => {
-  console.log("error--> ", error.message);
+  console.log("error--> ", error);
   return res.status(error.status || 500).json(error);
 });
 

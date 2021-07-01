@@ -3,7 +3,7 @@ const User = require("../models/User");
 const registerStrategy = require("./registerStrategy");
 const loginStrategy = require("./loginStrategy");
 
-passport.serializeUser((User, done) => {
+passport.serializeUser((user, done) => {
   return done(null, user._id);
 });
 
