@@ -1,4 +1,6 @@
 const express = require("express");
+// const router = express.Router()
+
 const { isAuth } = require("../middlewares/auth.middleware");
 
 const { registerGet, registerPost, loginGet, loginPost, logoutPost } = require("../controllers/auth.controllers");

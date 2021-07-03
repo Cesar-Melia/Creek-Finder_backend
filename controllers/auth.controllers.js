@@ -46,12 +46,13 @@ const loginPost = (req, res, next) => {
 
   const done = (error, user) => {
     if (error) return next(error);
-    req.logIn(user, (error) => {
+    req.logIn(user, (error, users) => {
       if (error) {
         return next(error);
       }
 
       return res.status(200).json(user);
+      // return res.redirect('/')
     });
   };
 
