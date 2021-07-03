@@ -1,5 +1,4 @@
 const passport = require("passport");
-const user = require("../models/User");
 
 const isAuth = (req, res, next) => {
   if (req.isAuthenticated()) {
@@ -12,7 +11,6 @@ const isAuth = (req, res, next) => {
 const isAdmin = (req, res, next) => {
   if (req.isAuthenticated()) {
     if (req.user.role === "admin") {
-      // el objeto req.user lo añade passport después que express-session lo recupere
       return next();
     } else {
       return res.redirect("/");

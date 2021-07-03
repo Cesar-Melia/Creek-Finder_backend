@@ -36,21 +36,22 @@ const loginGet = (req, res, next) => {
 
 const loginPost = (req, res, next) => {
   const { email, password } = req.body;
-
+  console.log(email)
   if (!email || !password) {
+
     const error = new Error('Completa todos los campos');
     return res.status(400).json(error);
   }
 
+
   const done = (error, user) => {
-    console.log('error dentro done', error);
     if (error) return next(error);
     req.logIn(user, (error) => {
       if (error) {
         return next(error);
       }
 
-      return res.redirect('/');
+      return res.status(200).json(user);
     });
   };
 

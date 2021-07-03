@@ -21,6 +21,7 @@ const loginStrategy = new LocalStrategy(
       const isValidPassword = await bcrypt.compare(password, existingUser.password);
 
       if (!isValidPassword) {
+
         const error = new Error("tu contraseña no es válida!");
         error.status = 400;
         return done(error, null);

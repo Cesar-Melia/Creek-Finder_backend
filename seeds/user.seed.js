@@ -6,19 +6,19 @@ const db = require('../db');
 const userSeed = [
     {
         userName: 'Admin',
-        password: '1234Asdf',
+        password: '$2b$10$vt1AvGDHtnclBzaT.Ts7CuTHRN8lwvociAdk1/G31MWDoK9Mrsk1C',
         email: 'admin@email.com',
         role: 'admin'
     },
     {
         userName: 'User',
-        password: '1234Asdf',
+        password: '$2b$10$vt1AvGDHtnclBzaT.Ts7CuTHRN8lwvociAdk1/G31MWDoK9Mrsk1C',
         email: 'user@email.com',
         role: 'user'
     },
     {
         userName: 'Creator',
-        password: '1234Asdf',
+        password: '$2b$10$vt1AvGDHtnclBzaT.Ts7CuTHRN8lwvociAdk1/G31MWDoK9Mrsk1C',
         email: 'creator@email.com',
         role: 'creator'
     }
