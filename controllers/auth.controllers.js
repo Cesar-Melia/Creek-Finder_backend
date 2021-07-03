@@ -1,18 +1,15 @@
-const passport = require("passport");
+const passport = require('passport');
 
-//Register
 const registerGet = (req, res, next) => {
-  //return res.status(200).json("register");
-  return res.render("register");
+  return res.status(200).json('register');
 };
 
 const registerPost = (req, res, next) => {
   const { email, userName, password } = req.body;
 
   if (!email || !userName || !password) {
-    const error = "Completa todos los campos";
-    //return res.status(400).json("register", { error });
-    return res.render("register", { error });
+    const error = 'Completa todos los campos';
+    return res.status(400).json('register', { error });
   }
 
   const done = (error, user) => {
@@ -24,42 +21,40 @@ const registerPost = (req, res, next) => {
       if (error) {
         return next(error);
       }
-      return res.redirect("/");
+      return res.redirect('/');
     });
   };
 
-  passport.authenticate("register", done)(req);
+  passport.authenticate('register', done)(req);
 };
 
 // login
 
 const loginGet = (req, res, next) => {
-  //return res.status(200).json("login");
-  return res.render("login");
+  return res.status(200).json('login');
 };
 
 const loginPost = (req, res, next) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
-    const error = new Error("Completa todos los campos");
+    const error = new Error('Completa todos los campos');
     return res.status(400).json(error);
-    // return res.render("register", { error });
   }
 
   const done = (error, user) => {
-    console.log("error dentro done", error);
+    console.log('error dentro done', error);
     if (error) return next(error);
     req.logIn(user, (error) => {
       if (error) {
         return next(error);
       }
 
-      return res.redirect("/");
+      return res.redirect('/');
     });
   };
 
-  passport.authenticate("login", done)(req);
+  passport.authenticate('login', done)(req);
 };
 
 const logoutPost = (req, res, next) => {
@@ -67,11 +62,11 @@ const logoutPost = (req, res, next) => {
     req.logout();
 
     req.session.destroy(() => {
-      res.clearCookie("connect.sid");
-      return res.redirect("/");
+      res.clearCookie('connect.sid');
+      return res.redirect('/');
     });
   } else {
-    return res.status(200).json("No había usuario logueado");
+    return res.status(200).json('No había usuario logueado');
   }
 };
 

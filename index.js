@@ -7,9 +7,9 @@ const path = require('path');
 
 const db = require('./db');
 const router = express.Router();
-const session = require("express-session");
-const MongoStore = require("connect-mongo");
-const passport = require("passport");
+const session = require('express-session');
+const MongoStore = require('connect-mongo');
+const passport = require('passport');
 
 require('./auth');
 
@@ -26,7 +26,7 @@ db.connect();
 const server = express();
 server.use(
   session({
-    secret: "SESSION_SECRET",
+    secret: 'SESSION_SECRET',
     resave: false,
     saveUninitialized: false,
     cookie: {
@@ -38,7 +38,6 @@ server.use(
 
 server.use(passport.initialize());
 server.use(passport.session());
-
 
 server.use((req, res, next) => {
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
@@ -56,9 +55,6 @@ server.use(
 
 server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
-
-server.set('views', path.join(__dirname, 'views'));
-server.set('view engine', 'hbs');
 
 server.use('/', indexRoutes);
 server.use('/creeks', creekRoutes);
