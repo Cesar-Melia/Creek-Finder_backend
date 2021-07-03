@@ -5,25 +5,31 @@ const dotenv = require('dotenv');
 dotenv.config();
 const path = require('path');
 
+const methodoverride = require('method-override')
+
+
 const db = require('./db');
 const router = express.Router();
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const passport = require('passport');
 
-require('./auth');
+// require('./auth/register');
+require('./auth/login');
 
 const indexRoutes = require('./routes/index.routes');
 const creekRoutes = require('./routes/creek.routes');
 const userRoutes = require('./routes/user.routes');
 const authRoutes = require('./routes/auth.routes');
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3500;
 
 dotenv.config();
 db.connect();
 
 const server = express();
+
+server.use(methodoverride('_method'))
 server.use(
   session({
     secret: 'SESSION_SECRET',
@@ -35,6 +41,7 @@ server.use(
     store: MongoStore.create({ mongoUrl: db.DB_URL }),
   })
 );
+
 
 server.use(passport.initialize());
 server.use(passport.session());
@@ -48,7 +55,7 @@ server.use((req, res, next) => {
 
 server.use(
   cors({
-    origin: ['http://localhost:3000', 'http://localhost:3500'],
+    origin: ['http://localhost:3500', 'http://localhost:3000'],
     credentials: true,
   })
 );

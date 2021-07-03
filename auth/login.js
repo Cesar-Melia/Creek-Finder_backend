@@ -1,6 +1,23 @@
 const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require("bcrypt");
 const User = require("../models/User");
+const passport = require('passport');
+
+
+passport.serializeUser((user, done) => {
+  return done(null, user._id)
+})
+
+passport.deserializeUser(async (userId, done) => {
+  try {
+    const existingUser = await User.findById(userId);
+    return done(null, existingUser)
+  } catch (error) {
+    return done(error, null)
+  }
+})
+
+
 
 const loginStrategy = new LocalStrategy(
   {
@@ -36,4 +53,6 @@ const loginStrategy = new LocalStrategy(
   }
 );
 
-module.exports = loginStrategy;
+
+passport.use('login', loginStrategy);
+// module.exports = loginStrategy;
