@@ -5,8 +5,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 const path = require('path');
 
-const methodoverride = require('method-override')
-
+const methodoverride = require('method-override');
 
 const db = require('./db');
 const router = express.Router();
@@ -14,7 +13,7 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const passport = require('passport');
 
-// require('./auth/register');
+require('./auth/register');
 require('./auth/login');
 
 const indexRoutes = require('./routes/index.routes');
@@ -29,7 +28,7 @@ db.connect();
 
 const server = express();
 
-server.use(methodoverride('_method'))
+server.use(methodoverride('_method'));
 server.use(
   session({
     secret: 'SESSION_SECRET',
@@ -41,7 +40,6 @@ server.use(
     store: MongoStore.create({ mongoUrl: db.DB_URL }),
   })
 );
-
 
 server.use(passport.initialize());
 server.use(passport.session());
@@ -75,7 +73,7 @@ server.use('*', (req, res, next) => {
 
 server.use((error, req, res, next) => {
   console.log('error--> ', error.message);
-  return res.status(error.status || 500).json(error);
+  return res.status(error.status || 500).json(error.message);
 });
 
 server.listen(PORT, () => console.log(`Server listening in port ${PORT}`));

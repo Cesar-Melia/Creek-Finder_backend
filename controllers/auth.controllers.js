@@ -1,48 +1,37 @@
 const passport = require('passport');
 
-const registerGet = (req, res, next) => {
-  return res.status(200).json('register');
-};
-
 const registerPost = (req, res, next) => {
   const { email, userName, password } = req.body;
 
   if (!email || !userName || !password) {
     const error = 'Completa todos los campos';
-    return res.status(400).json('register', { error });
+    return res.json(error); //next(error);
   }
 
   const done = (error, user) => {
     if (error) {
-      return next(error);
+      return res.json('done'); //next(error);
     }
 
     req.logIn(user, (error) => {
       if (error) {
-        return next(error);
+        return res.json('req.login'); //next(error);
       }
-      return res.redirect('/');
+
+      return res.json(user);
     });
   };
 
   passport.authenticate('register', done)(req);
 };
 
-// login
-
-const loginGet = (req, res, next) => {
-  return res.status(200).json('login');
-};
-
 const loginPost = (req, res, next) => {
   const { email, password } = req.body;
-  console.log(email)
+  console.log(email);
   if (!email || !password) {
-
     const error = new Error('Completa todos los campos');
     return res.status(400).json(error);
   }
-
 
   const done = (error, user) => {
     if (error) return next(error);
@@ -73,9 +62,7 @@ const logoutPost = (req, res, next) => {
 };
 
 module.exports = {
-  registerGet,
   registerPost,
-  loginGet,
   loginPost,
   logoutPost,
 };

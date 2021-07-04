@@ -1,31 +1,32 @@
-const LocalStrategy = require("passport-local").Strategy;
-const bcrypt = require("bcrypt");
-const User = require("../models/User");
-const { isValidPassword, isValidEmail } = require("./utils");
+const LocalStrategy = require('passport-local').Strategy;
+const passport = require('passport');
+const bcrypt = require('bcrypt');
+const User = require('../models/User');
+const { isValidPassword, isValidEmail } = require('./utils');
 
 const resgisterStrategy = new LocalStrategy(
   {
-    usernameField: "email",
-    passwordField: "password",
+    usernameField: 'email',
+    passwordField: 'password',
     passReqToCallback: true,
   },
   async (req, email, password, done) => {
     try {
       const existingUser = await User.findOne({ email });
       if (existingUser) {
-        const error = new Error("El usuario ya existe");
+        const error = new Error('El usuario ya existe');
         error.status = 400;
         return done(error);
       }
 
       if (!isValidEmail(email)) {
-        const error = new Error("Email inválido");
+        const error = new Error('Email inválido');
         error.status = 400;
         return done(error);
       }
 
       if (!isValidPassword(password)) {
-        const error = new Error("La contraseña debe contener 8 carácteres, 1 mayúscula, 1 minúscula");
+        const error = new Error('La contraseña debe contener 8 carácteres, 1 mayúscula, 1 minúscula');
         error.status = 400;
         return done(error);
       }
@@ -51,4 +52,4 @@ const resgisterStrategy = new LocalStrategy(
   }
 );
 
-module.exports = resgisterStrategy;
+passport.use('register', resgisterStrategy);
