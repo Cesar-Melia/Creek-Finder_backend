@@ -5,17 +5,17 @@ const registerPost = (req, res, next) => {
 
   if (!email || !userName || !password) {
     const error = 'Completa todos los campos';
-    return res.json(error); //next(error);
+    return next(error);
   }
 
   const done = (error, user) => {
     if (error) {
-      return res.json('done'); //next(error);
+      return next(error);
     }
 
     req.logIn(user, (error) => {
       if (error) {
-        return res.json('req.login'); //next(error);
+        return next(error);
       }
 
       return res.json(user);
@@ -27,21 +27,19 @@ const registerPost = (req, res, next) => {
 
 const loginPost = (req, res, next) => {
   const { email, password } = req.body;
-  console.log(email);
+
   if (!email || !password) {
     const error = new Error('Completa todos los campos');
-    return res.status(400).json(error);
+    return next(error);
   }
 
   const done = (error, user) => {
     if (error) return next(error);
+
     req.logIn(user, (error, users) => {
-      if (error) {
-        return next(error);
-      }
+      if (error) return next(error);
 
       return res.status(200).json(user);
-      // return res.redirect('/')
     });
   };
 

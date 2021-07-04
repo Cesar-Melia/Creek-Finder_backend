@@ -1,14 +1,26 @@
-const { response } = require('express');
 const express = require('express');
 const router = express.Router();
-const { userGet, userGetById, userEdit, userDelete } = require('../controllers/user.controllers');
 
-router.get('/', userGet);
+const {
+  userGet,
+  userGetById,
+  userEdit,
+  userAddFavorite,
+  userDeleteFavorite,
+  userDelete,
+} = require('../controllers/user.controllers');
+const { isAdmin, isAuth } = require('../middlewares/auth.middleware');
 
-router.get('/:id', userGetById);
+router.get('/', isAdmin, userGet);
 
-router.put('/edit/:id', userEdit);
+router.get('/:id', isAuth, userGetById);
 
-router.delete('/delete/:id', userDelete);
+router.put('/edit/:id', isAdmin, userEdit);
+
+router.put('/add-favorite/:creekId', isAuth, userAddFavorite);
+
+router.put('/delete-favorite/:creekId', isAuth, userDeleteFavorite);
+
+router.delete('/delete/:id', isAdmin, userDelete);
 
 module.exports = router;

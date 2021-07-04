@@ -1,4 +1,5 @@
 const User = require('../models/User');
+const Creek = require('../models/Creek');
 
 const userGet = async (req, res, next) => {
   try {
@@ -33,6 +34,60 @@ const userEdit = async (req, res, next) => {
   }
 };
 
+const userAddFavorite = async (req, res, next) => {
+  try {
+    const { userId } = req.user._id;
+    const { creekId } = req.params;
+
+    await User.findByIdAndUpdate(
+      userId,
+      {
+        $addToSet: { favorites: creekId },
+      },
+      { new: true }
+    );
+
+    await Creek.findByIdAndUpdate(
+      creekId,
+      {
+        $inc: { timesFav: 1 },
+      },
+      { new: true }
+    );
+
+    return res.status(201).json('Cala añadida a favoritos');
+  } catch (error) {
+    return next(error);
+  }
+};
+
+const userDeleteFavorite = async (req, res, next) => {
+  try {
+    const { userId } = req.user._id;
+    const { creekId } = req.params;
+
+    await User.findByIdAndUpdate(
+      userId,
+      {
+        $pull: { favorites: { $eq: creekId } },
+      },
+      { new: true }
+    );
+
+    await Creek.findByIdAndUpdate(
+      creekId,
+      {
+        $inc: { $sum: -1 },
+      },
+      { new: true }
+    );
+
+    return res.status(201).json('Cala añadida a favoritos');
+  } catch (error) {
+    return next(error);
+  }
+};
+
 const userDelete = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -51,4 +106,4 @@ const userDelete = async (req, res, next) => {
   }
 };
 
-module.exports = { userGet, userGetById, userEdit, userDelete };
+module.exports = { userGet, userGetById, userEdit, userAddFavorite, userDeleteFavorite, userDelete };

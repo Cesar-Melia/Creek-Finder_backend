@@ -20,6 +20,7 @@ const indexRoutes = require('./routes/index.routes');
 const creekRoutes = require('./routes/creek.routes');
 const userRoutes = require('./routes/user.routes');
 const authRoutes = require('./routes/auth.routes');
+const commentRoutes = require('./routes/comment.routes');
 
 const PORT = process.env.PORT || 3500;
 
@@ -65,6 +66,7 @@ server.use('/', indexRoutes);
 server.use('/creeks', creekRoutes);
 server.use('/users', userRoutes);
 server.use('/auth', authRoutes);
+server.use('/comments', commentRoutes);
 
 server.use('*', (req, res, next) => {
   const error = new Error('Page not found');
