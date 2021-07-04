@@ -6,7 +6,7 @@ const commentsGet = async (req, res, next) => {
   try {
     const { creekId } = req.params;
 
-    const comments = await Comment.find({ creek: creekId }).populate('users').populate('creeks');
+    const comments = await Comment.find({ creek: creekId }).populate('user').populate('creek');
 
     return res.status(200).json(comments);
   } catch (error) {

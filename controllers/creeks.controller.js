@@ -99,7 +99,7 @@ const creekGetById = async (req, res, next) => {
   try {
     const { id } = req.params;
 
-    const creek = await Creek.findById(id);
+    const creek = await Creek.findById(id).populate('comments');
     console.log('Creeks : ', creek);
 
     return res.status(200).json(creek);

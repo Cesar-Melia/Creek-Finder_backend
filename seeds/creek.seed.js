@@ -196,6 +196,18 @@ const creekSeed = [
     timesFavourite: 0,
     comments: [],
   },
+  {
+    name: 'Playa de Santo Tomás',
+    img: ['https://res.cloudinary.com/creek-finder/image/upload/v1625439839/seed/Santo-Tomas-scaled_nr4bwe.webp'],
+    province: 'Islas Baleares',
+    type: 'arena',
+    description:
+      'Situada en la población de Es Migjorn Gran, la Playa de Santo Tomás forma parte de un gran entrante de mar en forma de "u" que continúa con las playas de San Adeodato y Binigaus.',
+    lat: 39.9138138,
+    lng: 4.0412482,
+    timesFavourite: 0,
+    comments: [],
+  },
 ];
 
 mongoose
