@@ -2,7 +2,7 @@ const Creek = require('../models/Creek');
 
 const creekGet = async (req, res, next) => {
   try {
-    const creeks = await Creek.find();
+    const creeks = await Creek.find().populate('comments');
 
     return res.status(200).json(creeks);
   } catch (error) {
