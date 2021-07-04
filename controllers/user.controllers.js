@@ -36,24 +36,28 @@ const userEdit = async (req, res, next) => {
 
 const userAddFavorite = async (req, res, next) => {
   try {
-    const { userId } = req.user._id;
+    const { _id } = req.user;
     const { creekId } = req.params;
 
-    await User.findByIdAndUpdate(
-      userId,
-      {
-        $addToSet: { favorites: creekId },
-      },
-      { new: true }
-    );
+    const user = await User.findById(_id);
 
-    await Creek.findByIdAndUpdate(
-      creekId,
-      {
-        $inc: { timesFav: 1 },
-      },
-      { new: true }
-    );
+    if (!user.favorites.includes(creekId)) {
+      await User.findByIdAndUpdate(
+        _id,
+        {
+          $addToSet: { favorites: creekId },
+        },
+        { new: true }
+      );
+
+      await Creek.findByIdAndUpdate(
+        creekId,
+        {
+          $inc: { timesFav: 1 },
+        },
+        { new: true }
+      );
+    }
 
     return res.status(201).json('Cala añadida a favoritos');
   } catch (error) {
@@ -63,26 +67,30 @@ const userAddFavorite = async (req, res, next) => {
 
 const userDeleteFavorite = async (req, res, next) => {
   try {
-    const { userId } = req.user._id;
+    const { _id } = req.user;
     const { creekId } = req.params;
 
-    await User.findByIdAndUpdate(
-      userId,
-      {
-        $pull: { favorites: { $eq: creekId } },
-      },
-      { new: true }
-    );
+    const user = await User.findById(_id);
 
-    await Creek.findByIdAndUpdate(
-      creekId,
-      {
-        $inc: { $sum: -1 },
-      },
-      { new: true }
-    );
+    if (user.favorites.includes(creekId)) {
+      await User.findByIdAndUpdate(
+        _id,
+        {
+          $pull: { favorites: creekId },
+        },
+        { new: true }
+      );
 
-    return res.status(201).json('Cala añadida a favoritos');
+      await Creek.findByIdAndUpdate(
+        creekId,
+        {
+          $inc: { timesFav: -1 },
+        },
+        { new: true }
+      );
+    }
+
+    return res.status(201).json('Cala eliminada de favoritos');
   } catch (error) {
     return next(error);
   }
