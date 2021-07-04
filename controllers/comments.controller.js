@@ -18,13 +18,13 @@ const createCommentPost = async (req, res, next) => {
   try {
     const { creekId } = req.params;
     const { text } = req.body;
-    const userId = req.user._id;
+    const { _id } = req.user;
 
     const date = Date.now();
 
     const newComment = new Comment({
       creek: creekId,
-      user: userId,
+      user: _id,
       text: text,
       date: date,
     });
@@ -40,7 +40,7 @@ const createCommentPost = async (req, res, next) => {
     );
 
     await User.findByIdAndUpdate(
-      userId,
+      _id,
       {
         $addToSet: { comments: newComment },
       },
@@ -55,10 +55,15 @@ const createCommentPost = async (req, res, next) => {
 
 const deleteComment = async (req, res, next) => {
   try {
-    const { id } = req.params;
+    const { commentId } = req.params;
+
+    console.log(commentId);
+
     let response = '';
 
-    const deleted = await Comment.findByIdAndDelete(id);
+    const deleted = await Comment.findByIdAndDelete(commentId);
+
+    console.log('deleted: ', deleted);
 
     console.log('creek: ', deleted.creek);
     console.log('User: ', deleted.user);
@@ -66,7 +71,7 @@ const deleteComment = async (req, res, next) => {
     await Creek.findByIdAndUpdate(
       deleted.creek,
       {
-        $pull: { comments: id },
+        $pull: { comments: commentId },
       },
       { new: true }
     );
@@ -74,13 +79,13 @@ const deleteComment = async (req, res, next) => {
     await User.findByIdAndUpdate(
       deleted.user,
       {
-        $pull: { comments: id },
+        $pull: { comments: commentId },
       },
       { new: true }
     );
 
-    if (deleted) response = 'Order deleted from db';
-    else response = "Can't find an Order whit this id";
+    if (deleted) response = 'Comment deleted from db';
+    else response = "Can't find a comment whit this id";
 
     return res.status(200).json(response);
   } catch (error) {
