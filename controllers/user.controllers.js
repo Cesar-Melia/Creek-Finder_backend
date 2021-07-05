@@ -21,6 +21,20 @@ const userGetById = async (req, res, next) => {
   }
 };
 
+const userGetLogged = async (req, res, next) => {
+  console.log('Entra');
+  try {
+    const { _id } = req.user;
+    const user = await User.findById(_id).populate('comments');
+
+    user.password = null;
+
+    return res.status(200).json(user);
+  } catch (error) {
+    return next(error);
+  }
+};
+
 const userEdit = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -114,4 +128,4 @@ const userDelete = async (req, res, next) => {
   }
 };
 
-module.exports = { userGet, userGetById, userEdit, userAddFavorite, userDeleteFavorite, userDelete };
+module.exports = { userGet, userGetById, userGetLogged, userEdit, userAddFavorite, userDeleteFavorite, userDelete };

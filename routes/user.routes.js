@@ -4,6 +4,7 @@ const router = express.Router();
 const {
   userGet,
   userGetById,
+  userGetLogged,
   userEdit,
   userAddFavorite,
   userDeleteFavorite,
@@ -13,7 +14,9 @@ const { isAdmin, isAuth } = require('../middlewares/auth.middleware');
 
 router.get('/', isAdmin, userGet);
 
-router.get('/:id', isAuth, userGetById);
+router.get('/logged', isAuth, userGetLogged);
+
+router.get('/:id', isAdmin, userGetById);
 
 router.put('/edit/:id', isAdmin, userEdit);
 
