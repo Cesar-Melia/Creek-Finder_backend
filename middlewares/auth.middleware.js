@@ -1,22 +1,25 @@
-const passport = require("passport");
+const passport = require('passport');
 
 const isAuth = (req, res, next) => {
   if (req.isAuthenticated()) {
     return next();
   } else {
-    return res.redirect("/login");
+    const error = new Error('No hay un usuario autenticado');
+    return next(error);
   }
 };
 
 const isAdmin = (req, res, next) => {
   if (req.isAuthenticated()) {
-    if (req.user.role === "admin") {
+    if (req.user.role === 'admin') {
       return next();
     } else {
-      return res.redirect("/");
+      const error = new Error('No hay un usuario autenticado');
+      return next(error);
     }
   } else {
-    return res.redirect("/auth/login");
+    const error = new Error('Solo accesible para Administrador');
+    return next(error);
   }
 };
 

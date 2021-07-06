@@ -22,7 +22,6 @@ const userGetById = async (req, res, next) => {
 };
 
 const userGetLogged = async (req, res, next) => {
-  console.log('Entra');
   try {
     const { _id } = req.user;
     const user = await User.findById(_id).populate('comments');
