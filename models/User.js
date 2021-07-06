@@ -12,13 +12,11 @@ const userSchema = mongoose.Schema(
     },
     comments: [{ type: mongoose.Types.ObjectId, ref: 'Comments' }],
     favorites: [{ type: mongoose.Types.ObjectId, ref: 'Creeks' }],
-    img: [
-      {
-        type: String,
-        required: true,
-        default: 'https://res.cloudinary.com/creek-finder/image/upload/v1625564708/Users/user_default_blue_zfil71.png',
-      },
-    ],
+    img: {
+      type: String,
+      required: true,
+      default: 'https://res.cloudinary.com/creek-finder/image/upload/v1625564708/Users/user_default_blue_zfil71.png',
+    },
   },
   {
     timestamps: true,
