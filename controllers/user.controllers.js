@@ -37,9 +37,30 @@ const userGetLogged = async (req, res, next) => {
 const userEdit = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const { userName, password, email } = req.body;
-    const user = { userName, password, email };
+    const { userName, password, email, img } = req.body;
+
+    const user = { userName, password, email, img };
+
     const editedUser = await User.findByIdAndUpdate(id, user, { new: true });
+
+    editUser.password = null;
+
+    return res.status(201).json(editedUser);
+  } catch (error) {
+    return next(error);
+  }
+};
+
+const userEditLogged = async (req, res, next) => {
+  try {
+    const { _id } = req.user;
+    const { userName, password, email, img } = req.body;
+
+    const user = { userName, password, email, img };
+
+    const editedUser = await User.findByIdAndUpdate(_id, user, { new: true });
+
+    editUser.password = null;
 
     return res.status(201).json(editedUser);
   } catch (error) {
@@ -127,4 +148,13 @@ const userDelete = async (req, res, next) => {
   }
 };
 
-module.exports = { userGet, userGetById, userGetLogged, userEdit, userAddFavorite, userDeleteFavorite, userDelete };
+module.exports = {
+  userGet,
+  userGetById,
+  userGetLogged,
+  userEdit,
+  userAddFavorite,
+  userDeleteFavorite,
+  userDelete,
+  userEditLogged,
+};

@@ -10,6 +10,8 @@ const userSeed = [
     email: 'admin@email.com',
     role: 'admin',
     favorites: [],
+    comments: [],
+    img: 'https://res.cloudinary.com/creek-finder/image/upload/v1625564708/Users/user_default_blue_zfil71.png',
   },
   {
     userName: 'User',
@@ -17,6 +19,8 @@ const userSeed = [
     email: 'user@email.com',
     role: 'user',
     favorites: [],
+    comments: [],
+    img: 'https://res.cloudinary.com/creek-finder/image/upload/v1625564708/Users/user_default_blue_zfil71.png',
   },
   {
     userName: 'Creator',
@@ -24,6 +28,8 @@ const userSeed = [
     email: 'creator@email.com',
     role: 'creator',
     favorites: [],
+    comments: [],
+    img: 'https://res.cloudinary.com/creek-finder/image/upload/v1625564708/Users/user_default_blue_zfil71.png',
   },
 ];
 
