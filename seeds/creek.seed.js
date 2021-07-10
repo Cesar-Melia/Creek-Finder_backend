@@ -215,7 +215,7 @@ const creekSeed = [
     name: "Playa de la Granadella",
     img: ["https://res.cloudinary.com/creek-finder/image/upload/v1625910275/seed/Cala-de-la-Granadella-1_obihdr.jpg"],
     province: "Alicante",
-    type: "arena",
+    type: "cantos rodados",
     description:
       "La playa de la Granadella es una playa de grava que se sitúa en la cala del mismo nombre del municipio de Jávea en la provincia de Alicante,.",
     lat: 38.72957,
