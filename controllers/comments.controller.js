@@ -4,9 +4,21 @@ const Comment = require('../models/Comment');
 
 const commentsGet = async (req, res, next) => {
   try {
+    const comments = await Comment.find().populate('user').populate('creek');
+
+    return res.status(200).json(comments);
+  } catch (error) {
+    return next(error);
+  }
+};
+
+const commentsGetId = async (req, res, next) => {
+  try {
     const { creekId } = req.params;
 
-    const comments = await Comment.find({ creek: creekId }).populate('user').populate('creek');
+    const comments = await Comment.find({ creek: creekId })
+      .populate('user')
+      .populate('creek');
 
     return res.status(200).json(comments);
   } catch (error) {
@@ -93,4 +105,4 @@ const deleteComment = async (req, res, next) => {
   }
 };
 
-module.exports = { commentsGet, createCommentPost, deleteComment };
+module.exports = { commentsGet, commentsGetId, createCommentPost, deleteComment };
