@@ -137,9 +137,9 @@ const userDelete = async (req, res, next) => {
     let response = '';
 
     if (deletedUser) {
-      response = 'user deleted';
+      response = 'Usuario Borrado';
     } else {
-      response = 'user not found';
+      response = 'Usuario no encontrado';
     }
 
     return res.json(response);

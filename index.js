@@ -54,7 +54,7 @@ server.use((req, res, next) => {
 
 server.use(
   cors({
-    origin: ['http://localhost:3500', 'http://localhost:3000'],
+    origin: ['http://localhost:3500', 'http://localhost:3000', 'http://localhost:4200'],
     credentials: true,
   })
 );
@@ -75,7 +75,7 @@ server.use('*', (req, res, next) => {
 
 server.use((error, req, res, next) => {
   console.log('error--> ', error.message);
-  return res.status(error.status || 500).json(error.message);
+  return res.status(error.status || 500).json(error);
 });
 
 server.listen(PORT, () => console.log(`Server listening in port ${PORT}`));
