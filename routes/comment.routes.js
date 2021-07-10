@@ -10,9 +10,9 @@ const router = express.Router();
 
 router.get('/', isAdmin, commentsGet);
 
-router.post('/create/:creekId', isAuth, createCommentPost);
+router.post('/create/:creekId', createCommentPost); //isAuth
 
-router.delete('/delete/:commentId', isAdmin, deleteComment);
+router.delete('/delete/:commentId', deleteComment); //isAdmin
 
 router.get('/:creekId', commentsGetId);
 module.exports = router;
