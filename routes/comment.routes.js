@@ -8,7 +8,7 @@ const {
 const { isAdmin, isAuth } = require('../middlewares/auth.middleware');
 const router = express.Router();
 
-router.get('/', commentsGet);
+router.get('/', isAdmin, commentsGet);
 
 router.post('/create/:creekId', isAuth, createCommentPost);
 
