@@ -37,7 +37,7 @@ const resgisterStrategy = new LocalStrategy(
       const newUser = new User({
         email,
         password: hash,
-        fullName: req.body.fullName,
+        userName: req.body.userName,
       });
 
       const user = await newUser.save();
