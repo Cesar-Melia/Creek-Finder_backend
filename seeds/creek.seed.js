@@ -13,7 +13,7 @@ const creekSeed = [
       'Situada en la población de Es Migjorn Gran, la Playa de Santo Tomás forma parte de un gran entrante de mar en forma de "u" que continúa con las playas de San Adeodato y Binigaus.',
     lat: 39.91333,
     lng: 4.0421,
-    timesFavourite: 0,
+    timesFav: 0,
     comments: [],
   },
   {
@@ -24,7 +24,7 @@ const creekSeed = [
     description: "Cala de arena blanca, con una torre para socorristas y un bosque de pinos rodeandola",
     lat: 39.93207,
     lng: 3.91495,
-    timesFavourite: 0,
+    timesFav: 0,
     comments: [],
   },
   {
@@ -39,7 +39,7 @@ const creekSeed = [
     description: "Cala amplia de arena blanca, rodeada por un bosque de pinos y camino en los acantilados adyacientes",
     lat: 39.936196499999994,
     lng: 3.9333940114311083,
-    timesFavourite: 0,
+    timesFav: 0,
     comments: [],
   },
   {
@@ -51,7 +51,7 @@ const creekSeed = [
       'Cala de arena blanca y con un gran hotel justo detras, cuenta con un amplio parking para dejar el coche. Conectada con "Camí de Cavalls" para hacer rutas a otras playas cercanas',
     lat: 39.93702057615642,
     lng: 3.960738703558726,
-    timesFavourite: 0,
+    timesFav: 0,
     comments: [],
   },
   {
@@ -67,7 +67,7 @@ const creekSeed = [
       "Cala de arena rojiza debido a la concentracion de arcilla. Fabuloso contraste de la arena con el azul claro del agua. De las mejores playas de Menorca, de hecho, cuenta con el privilejio de ser la portada de uno de los discos de Mike Oldfield ",
     lat: 40.05613022268097,
     lng: 4.0420949622722615,
-    timesFavourite: 0,
+    timesFav: 0,
     comments: [],
   },
   {
@@ -79,7 +79,7 @@ const creekSeed = [
       "La playa de Mitjana es una de las magníficas playas del sur de Menorca. Situada cerca de Cala Galdana, esta cala virgen es accesible para todo el mundo.",
     lat: 39.9337621,
     lng: 3.9705993,
-    timesFavourite: 0,
+    timesFav: 0,
     comments: [],
   },
   {
@@ -91,7 +91,7 @@ const creekSeed = [
       "Cala Macarelleta es una de las calas con mayor número de nudistas en Menorca. Se encuentra situada en la misma bahía que Cala Macarella y está bañada por las mismas aguas cristalinas de color turquesa.",
     lat: 39.9361676,
     lng: 3.9347745,
-    timesFavourite: 0,
+    timesFav: 0,
     comments: [],
   },
   {
@@ -103,7 +103,7 @@ const creekSeed = [
       "Su emplazamiento entre grandes acantilados, su agua azul y su arena blanca, hacen de Cala en Porter una de las calas más fascinantes de Menorca.",
     lat: 39.8708358,
     lng: 4.1319861,
-    timesFavourite: 0,
+    timesFav: 0,
     comments: [],
   },
   {
@@ -118,7 +118,7 @@ const creekSeed = [
       "Cala'n Bosch es una de las calas más cercanas a Ciudadela y se encuentra al suroeste de Menorca. Está totalmente urbanizada pero la arena y sus aguas cristalinas la convierten en una de las mejores.",
     lat: 39.9261534,
     lng: 3.8373506,
-    timesFavourite: 0,
+    timesFav: 0,
     comments: [],
   },
   {
@@ -130,7 +130,7 @@ const creekSeed = [
       "Es Talaier es una playa virgen del sur de Ciudadela, con aguas turquesas y arena blanca. Aunque es bastante pequeña, en verano suele estar llena de turistas.",
     lat: 39.9267345,
     lng: 3.9027457,
-    timesFavourite: 0,
+    timesFav: 0,
     comments: [],
   },
   {
@@ -145,7 +145,7 @@ const creekSeed = [
       "La Vall es una de las calas de la costa norte de Menorca más cercanas a Ciudadela. Se encuentra a escasa distancia de Cala Morell, cuya necrópolis ofrece un lugar interesante para terminar un día de playa.",
     lat: 40.0461637,
     lng: 3.9216889,
-    timesFavourite: 0,
+    timesFav: 0,
     comments: [],
   },
   {
@@ -157,7 +157,7 @@ const creekSeed = [
       "Cala Morell es una cala localizada en el norte de Menorca. Mide 80 metros de largo y unos 50 de ancho y está rodeada por acantilados con rocas peculiares, dotándola de un atractivo especial desde el punto de vista paisajístico.",
     lat: 40.0536351,
     lng: 3.882334,
-    timesFavourite: 0,
+    timesFav: 0,
     comments: [],
   },
   {
@@ -169,7 +169,7 @@ const creekSeed = [
       "Son Saura es una de las playas vírgenes más famosas de la costa sur de Menorca. Es una playa grande, dividida en dos mitades, que cuenta con servicios de parking y socorrista.",
     lat: 39.9278191,
     lng: 3.8921703,
-    timesFavourite: 0,
+    timesFav: 0,
     comments: [],
   },
   {
@@ -181,7 +181,7 @@ const creekSeed = [
       "Cala Blanca es una pequeña cala muy cercana a Ciudadela, al oeste de Menorca. Está situada en la urbanización con el mismo nombre.",
     lat: 39.967747,
     lng: 3.8356216,
-    timesFavourite: 0,
+    timesFav: 0,
     comments: [],
   },
   {
@@ -193,7 +193,7 @@ const creekSeed = [
       "Son Bou es la playa más grande de Menorca. Esta playa ofrece casi dos kilómetros y medio de arena dorada donde poder disfrutar.",
     lat: 39.8994316,
     lng: 4.0722933,
-    timesFavourite: 0,
+    timesFav: 0,
     comments: [],
   },
   {
@@ -205,7 +205,7 @@ const creekSeed = [
       'Situada en la población de Es Migjorn Gran, la Playa de Santo Tomás forma parte de un gran entrante de mar en forma de "u" que continúa con las playas de San Adeodato y Binigaus.',
     lat: 39.9138138,
     lng: 4.0412482,
-    timesFavourite: 0,
+    timesFav: 0,
     comments: [],
   },
 
