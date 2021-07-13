@@ -37,9 +37,15 @@ const userGetLogged = async (req, res, next) => {
 const userEdit = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const { userName, password, email, img } = req.body;
+    const { userName, password, email, img, role } = req.body;
 
-    const user = { userName, password, email, img };
+    const user = {};
+
+    userName && (user.userName = userName);
+    email && (user.email = email);
+    password && (user.password = password);
+    img && (user.img = img);
+    role && (user.role = role);
 
     const editedUser = await User.findByIdAndUpdate(id, user, { new: true });
 

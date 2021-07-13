@@ -59,34 +59,18 @@ const deleteCreek = async (req, res, next) => {
 };
 
 const creekEdit = async (req, res, next) => {
-  const { id } = req.params;
-  const { name, province, type, description, lat, lng } = req.body;
-  const uploadFields = {};
-
-  if (name) {
-    uploadFields.name = name;
-  }
-
-  if (province) {
-    uploadFields.province = province;
-  }
-  if (type) {
-    uploadFields.type = type;
-  }
-  if (description) {
-    uploadFields.description = description;
-  }
-
-  if (lat) {
-    uploadFields.lat = lat;
-  }
-
-  if (lng) {
-    uploadFields.lng = lng;
-  }
-
   try {
-    console.log(req.body);
+    const { id } = req.params;
+    const { name, province, type, description, lat, lng } = req.body;
+    const uploadFields = {};
+
+    name && (uploadFields.name = name);
+    province && (uploadFields.province = province);
+    type && (uploadFields.type = type);
+    description && (uploadFields.description = description);
+    lat && (uploadFields.lat = lat);
+    lng && (uploadFields.lng = lng);
+
     const editedCreek = await Creek.findByIdAndUpdate(id, uploadFields, { new: true });
 
     return res.status(201).json(editedCreek);
