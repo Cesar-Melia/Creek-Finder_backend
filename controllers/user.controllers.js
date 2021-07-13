@@ -14,7 +14,7 @@ const userGetById = async (req, res, next) => {
   try {
     const { id } = req.params;
     const user = await User.findById(id);
-
+    user.password = null;
     return res.status(200).json(user);
   } catch (error) {
     return next(error);
@@ -43,7 +43,7 @@ const userEdit = async (req, res, next) => {
 
     const editedUser = await User.findByIdAndUpdate(id, user, { new: true });
 
-    editUser.password = null;
+    editedUser.password = null;
 
     return res.status(201).json(editedUser);
   } catch (error) {
