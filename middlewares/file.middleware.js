@@ -1,5 +1,4 @@
 const multer = require('multer');
-
 const path = require('path');
 const fs = require('fs');
 const cloudinary = require('cloudinary').v2;
@@ -19,9 +18,9 @@ const fileFilter = (req, file, cb) => {
   if (!VALID_FILE_TYPES.includes(file.mimetype)) {
     const error = new Error('Tipo de archivo inválido. Debe ser .jpg o .png');
 
-    cb(error);
+    return cb(error);
   } else {
-    cb(null, true);
+    return cb(null, true);
   }
 };
 
