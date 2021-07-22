@@ -4,7 +4,7 @@ const {
   commentsGetId,
   createCommentPost,
   deleteComment,
-} = require('../controllers/comments.controller');
+} = require('../controllers/comments.controllers');
 const { isAdmin, isAuth } = require('../middlewares/auth.middleware');
 const router = express.Router();
 

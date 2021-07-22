@@ -7,7 +7,7 @@ const {
   deleteCreek,
   creekEdit,
   creekGetById,
-} = require('../controllers/creeks.controller');
+} = require('../controllers/creeks.controllers');
 const { isAdmin, isAuth } = require('../middlewares/auth.middleware');
 
 router.get('/', creekGet);
