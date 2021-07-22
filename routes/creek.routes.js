@@ -16,7 +16,7 @@ router.post('/create', [upload.single('img'), uploadToCloudinary], createCreek);
 
 router.delete('/delete/:id', deleteCreek); //isAdmin
 
-router.put('/edit/:id', [upload.single('image'), uploadToCloudinary], creekEdit); //isAdmin
+router.put('/edit/:id', [upload.single('img'), uploadToCloudinary], creekEdit); //isAdmin
 
 router.get('/:id', creekGetById);
 
