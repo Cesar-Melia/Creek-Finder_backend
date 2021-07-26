@@ -3,12 +3,11 @@ const cors = require('cors');
 
 const dotenv = require('dotenv');
 dotenv.config();
-const path = require('path');
+
 
 const methodoverride = require('method-override');
 
 const db = require('./db');
-const router = express.Router();
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const passport = require('passport');
@@ -29,22 +28,6 @@ db.connect();
 
 const server = express();
 
-server.use(methodoverride('_method'));
-server.use(
-  session({
-    secret: 'SESSION_SECRET',
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-      maxAge: 1 * 24 * 60 * 60 * 1000,
-    },
-    store: MongoStore.create({ mongoUrl: db.DB_URL }),
-  })
-);
-
-server.use(passport.initialize());
-server.use(passport.session());
-
 server.use((req, res, next) => {
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
   res.header('Access-Control-Allow-Credentials', true);
@@ -59,8 +42,31 @@ server.use(
   })
 );
 
+server.use(methodoverride('_method'));
+
+
 server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
+
+server.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      maxAge: 1 * 24 * 60 * 60 * 1000,
+      httpOnly: false,
+      // al desplegar (front y back) cambiar secure a true!
+      secure: false,
+      sameSite: false,
+    },
+    store: MongoStore.create({ mongoUrl: db.DB_URL }),
+  })
+);
+
+
+server.use(passport.initialize());
+server.use(passport.session());
 
 server.use('/', indexRoutes);
 server.use('/creeks', creekRoutes);
