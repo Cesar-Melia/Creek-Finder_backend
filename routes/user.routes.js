@@ -20,9 +20,9 @@ router.get('/logged', userGetLogged); //isAuth
 
 router.get('/:id', userGetById); //isAdmin
 
-router.put('/edit/:id', [upload.single('img'), uploadToCloudinary], userEdit); //isAdmin
-
 router.put('/edit/logged', [upload.single('img'), uploadToCloudinary], userEditLogged); //isAuth,
+
+router.put('/edit/:id', [upload.single('img'), uploadToCloudinary], userEdit); //isAdmin
 
 router.put('/add-favorite/:creekId', userAddFavorite); //isAuth
 

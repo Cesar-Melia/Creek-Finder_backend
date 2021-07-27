@@ -15,6 +15,8 @@ const storage = multer.diskStorage({
 });
 
 const fileFilter = (req, file, cb) => {
+  console.log('filefilter...');
+
   if (!VALID_FILE_TYPES.includes(file.mimetype)) {
     const error = new Error('Tipo de archivo inválido. Debe ser .jpg o .png');
 

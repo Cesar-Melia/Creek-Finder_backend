@@ -4,7 +4,6 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 dotenv.config();
 
-
 const methodoverride = require('method-override');
 
 const db = require('./db');
@@ -44,7 +43,6 @@ server.use(
 
 server.use(methodoverride('_method'));
 
-
 server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
 
@@ -64,7 +62,6 @@ server.use(
   })
 );
 
-
 server.use(passport.initialize());
 server.use(passport.session());
 
@@ -80,7 +77,7 @@ server.use('*', (req, res, next) => {
 });
 
 server.use((error, req, res, next) => {
-  console.log('error--> ', error.message);
+  console.log('error--> ', error);
   return res.status(error.status || 500).json(error);
 });
 

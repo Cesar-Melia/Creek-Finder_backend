@@ -30,6 +30,7 @@ const userGetLogged = async (req, res, next) => {
 
     return res.status(200).json(user);
   } catch (error) {
+    console.log('usuario: ', req.user);
     return next(error);
   }
 };
@@ -60,13 +61,18 @@ const userEdit = async (req, res, next) => {
 const userEditLogged = async (req, res, next) => {
   try {
     const { _id } = req.user;
-    const { userName, password, email, img } = req.body;
+    const { userName } = req.body;
+    console.log('campos: ', _id, userName);
 
-    const user = { userName, password, email, img };
+    console.log('image: ', req.fileUrl);
+
+    const img = req.fileUrl ? req.fileUrl : '';
+
+    const user = { userName, img };
 
     const editedUser = await User.findByIdAndUpdate(_id, user, { new: true });
 
-    editUser.password = null;
+    editedUser.password = null;
 
     return res.status(201).json(editedUser);
   } catch (error) {
