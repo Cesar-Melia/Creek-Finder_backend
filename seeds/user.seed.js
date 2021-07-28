@@ -11,7 +11,7 @@ const userSeed = [
     role: 'admin',
     favorites: [],
     comments: [],
-    img: 'https://res.cloudinary.com/creek-finder/image/upload/v1625564708/Users/user_default_blue_zfil71.png',
+    img: 'https://res.cloudinary.com/creek-finder/image/upload/v1627470119/Users/admin_pmdkrm.jpg',
   },
   {
     userName: 'User',
@@ -44,7 +44,7 @@ mongoose
   .then(async () => {
     await User.insertMany(userSeed);
   })
-  .catch((error) => {
+  .catch(error => {
     console.log('We couldn´t insert the Users seed to the data base');
   })
   .finally(() => {

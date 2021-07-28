@@ -25,10 +25,10 @@ const userGetById = async (req, res, next) => {
 
 const userGetLogged = async (req, res, next) => {
   try {
-    if (!req.user) return res.status(200).json(null)
+    if (!req.user) return res.status(200).json(null);
 
     const { _id } = req.user;
-    const user = await User.findById(_id).populate('comments');
+    const user = await User.findById(_id).populate('comments').populate('favorites');
 
     user.password = null;
 
@@ -65,10 +65,9 @@ const userEdit = async (req, res, next) => {
 const userEditLogged = async (req, res, next) => {
   try {
     const { _id } = req.user;
-    const oldImg = req.user.img
+    const oldImg = req.user.img;
 
     const { userName, password, email } = req.body;
-
 
     const img = req.fileUrl ? req.fileUrl : oldImg;
 
@@ -81,11 +80,10 @@ const userEditLogged = async (req, res, next) => {
       const saltRounds = 10;
       const hash = await bcrypt.hash(password, saltRounds);
       user.password = hash;
-    };
+    }
     if (email && isValidEmail(email)) {
       user.email = email;
-    };
-
+    }
 
     const editedUser = await User.findByIdAndUpdate(_id, user, { new: true });
 
