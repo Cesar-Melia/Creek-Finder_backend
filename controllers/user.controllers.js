@@ -1,5 +1,7 @@
 const User = require('../models/User');
 const Creek = require('../models/Creek');
+const { isValidPassword, isValidEmail } = require('../auth/utils');
+const bcrypt = require('bcrypt');
 
 const userGet = async (req, res, next) => {
   try {
@@ -63,14 +65,27 @@ const userEdit = async (req, res, next) => {
 const userEditLogged = async (req, res, next) => {
   try {
     const { _id } = req.user;
-    const { userName } = req.body;
-    console.log('campos: ', _id, userName);
+    const oldImg = req.user.img
 
-    console.log('image: ', req.fileUrl);
+    const { userName, password, email } = req.body;
 
-    const img = req.fileUrl ? req.fileUrl : '';
 
-    const user = { userName, img };
+    const img = req.fileUrl ? req.fileUrl : oldImg;
+
+    const user = {};
+
+    userName && (user.userName = userName);
+    img && (user.img = img);
+
+    if (password && isValidPassword(password)) {
+      const saltRounds = 10;
+      const hash = await bcrypt.hash(password, saltRounds);
+      user.password = hash;
+    };
+    if (email && isValidEmail(email)) {
+      user.email = email;
+    };
+
 
     const editedUser = await User.findByIdAndUpdate(_id, user, { new: true });
 
