@@ -23,6 +23,8 @@ const userGetById = async (req, res, next) => {
 
 const userGetLogged = async (req, res, next) => {
   try {
+    if (!req.user) return res.status(200).json(null)
+
     const { _id } = req.user;
     const user = await User.findById(_id).populate('comments');
 
