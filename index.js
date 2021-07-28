@@ -15,10 +15,10 @@ require('./auth/register');
 require('./auth/login');
 
 const indexRoutes = require('./routes/index.routes');
-const creekRoutes = require('./routes/creek.routes');
-const userRoutes = require('./routes/user.routes');
+const creeksRoutes = require('./routes/creeks.routes');
+const usersRoutes = require('./routes/users.routes');
 const authRoutes = require('./routes/auth.routes');
-const commentRoutes = require('./routes/comment.routes');
+const commentsRoutes = require('./routes/comments.routes');
 
 const PORT = process.env.PORT || 3500;
 
@@ -66,10 +66,10 @@ server.use(passport.initialize());
 server.use(passport.session());
 
 server.use('/', indexRoutes);
-server.use('/creeks', creekRoutes);
-server.use('/users', userRoutes);
+server.use('/creeks', creeksRoutes);
+server.use('/users', usersRoutes);
 server.use('/auth', authRoutes);
-server.use('/comments', commentRoutes);
+server.use('/comments', commentsRoutes);
 
 server.use('*', (req, res, next) => {
   const error = new Error('Page not found');
