@@ -27,12 +27,9 @@ const userGetLogged = async (req, res, next) => {
   try {
     if (!req.user) return res.status(200).json(null);
 
-    const { _id } = req.user;
-    const user = await User.findById(_id).populate('comments').populate('favorites');
+    req.user.password = null;
 
-    user.password = null;
-
-    return res.status(200).json(user);
+    return res.status(200).json(req.user);
   } catch (error) {
     console.log('usuario: ', req.user);
     return next(error);

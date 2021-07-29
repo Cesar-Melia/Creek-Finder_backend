@@ -1,8 +1,8 @@
-const Creek = require("../models/Creek");
+const Creek = require('../models/Creek');
 
 const creekGet = async (req, res, next) => {
   try {
-    const creeks = await Creek.find().populate("comments");
+    const creeks = await Creek.find().populate('comments');
 
     return res.status(200).json(creeks);
   } catch (error) {
@@ -11,12 +11,12 @@ const creekGet = async (req, res, next) => {
 };
 
 const createCreek = async (req, res, next) => {
-  console.log("Entra hasta aqui");
+  console.log('Entra hasta aqui');
 
   try {
     const { name, province, type, description, lat, lng } = req.body;
 
-    const img = req.fileUrl ? req.fileUrl : "";
+    const img = req.fileUrl ? req.fileUrl : '';
 
     const newCreek = new Creek({
       name,
@@ -42,15 +42,15 @@ const deleteCreek = async (req, res, next) => {
   try {
     const { id } = req.params;
 
-    console.log("id: ", id);
+    console.log('id: ', id);
 
     const deletedCreek = await Creek.findByIdAndDelete(id);
 
-    let response = "";
+    let response = '';
     if (deletedCreek) {
-      response = "creek deleted";
+      response = 'creek deleted';
     } else {
-      response = "creek not found";
+      response = 'creek not found';
     }
     return res.status(200).json(response);
   } catch (error) {
@@ -84,8 +84,8 @@ const creekGetById = async (req, res, next) => {
   try {
     const { id } = req.params;
 
-    const creek = await Creek.findById(id).populate("comments");
-    console.log("Creeks : ", creek);
+    const creek = await Creek.findById(id).populate('comments');
+    console.log('Creeks : ', creek);
 
     return res.status(200).json(creek);
   } catch (error) {

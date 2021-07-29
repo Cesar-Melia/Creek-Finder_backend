@@ -1,4 +1,5 @@
 const passport = require('passport');
+const User = require('../models/User');
 
 const registerPost = (req, res, next) => {
   const { email, userName, password } = req.body;
@@ -13,7 +14,7 @@ const registerPost = (req, res, next) => {
       return next(error);
     }
 
-    req.logIn(user, (error) => {
+    req.logIn(user, error => {
       if (error) {
         return next(error);
       }
@@ -36,7 +37,7 @@ const loginPost = (req, res, next) => {
   const done = (error, user) => {
     if (error) return next(error);
 
-    req.logIn(user, (error, users) => {
+    req.logIn(user, async error => {
       if (error) return next(error);
 
       return res.status(200).json(user);

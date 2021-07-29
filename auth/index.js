@@ -1,7 +1,7 @@
-const passport = require("passport");
-const User = require("../models/User");
-const registerStrategy = require("./registerStrategy");
-const loginStrategy = require("./loginStrategy");
+const passport = require('passport');
+const User = require('../models/User');
+const registerStrategy = require('./registerStrategy');
+const loginStrategy = require('./loginStrategy');
 
 passport.serializeUser((user, done) => {
   return done(null, user._id);
@@ -9,12 +9,12 @@ passport.serializeUser((user, done) => {
 
 passport.deserializeUser(async (userId, done) => {
   try {
-    const existingUser = await User.findById(userId);
+    const existingUser = await User.findById(userId).populate('comments').populate('favorites');
     return done(null, existingUser);
   } catch (error) {
     return done(error, null);
   }
 });
 
-passport.use("register", registerStrategy);
-passport.use("login", loginStrategy);
+passport.use('register', registerStrategy);
+passport.use('login', loginStrategy);
