@@ -6,7 +6,7 @@ const { isAdmin, isAuth } = require('../middlewares/auth.middleware');
 
 router.get('/', creekGet);
 
-router.post('/create', [isAdmin, upload.single('img'), uploadToCloudinary], createCreek);
+router.post('/create', [upload.single('img'), uploadToCloudinary], createCreek); //isAdmin
 
 router.delete('/delete/:id', isAdmin, deleteCreek);
 

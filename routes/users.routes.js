@@ -14,7 +14,7 @@ const {
 } = require('../controllers/user.controllers');
 const { isAdmin, isAuth } = require('../middlewares/auth.middleware');
 
-router.get('/', isAdmin, userGet);
+router.get('/', userGet); //isAdmin
 
 router.get('/logged', isAuth, userGetLogged);
 
