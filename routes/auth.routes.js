@@ -7,6 +7,6 @@ const { registerPost, loginPost, logoutPost } = require('../controllers/auth.con
 
 router.post('/register', registerPost);
 router.post('/login', loginPost);
-router.post('/logout', isAuth, logoutPost);
+router.post('/logout', logoutPost);
 
 module.exports = router;
