@@ -14,11 +14,11 @@ const isAdmin = (req, res, next) => {
     if (req.user.role === 'admin') {
       return next();
     } else {
-      const error = new Error('No hay un usuario autenticado');
+      const error = new Error('Solo accesible para Administrador');
       return next(error);
     }
   } else {
-    const error = new Error('Solo accesible para Administrador');
+    const error = new Error('No hay un usuario autenticado');
     return next(error);
   }
 };

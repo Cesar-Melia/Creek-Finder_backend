@@ -3,14 +3,10 @@ const router = express.Router();
 
 const { isAuth } = require('../middlewares/auth.middleware');
 
-const {
-  registerPost,
-  loginPost,
-  logoutPost,
-} = require('../controllers/auth.controllers');
+const { registerPost, loginPost, logoutPost } = require('../controllers/auth.controllers');
 
 router.post('/register', registerPost);
 router.post('/login', loginPost);
-router.post('/logout', logoutPost); // isAuth
+router.post('/logout', isAuth, logoutPost);
 
 module.exports = router;

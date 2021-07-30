@@ -14,20 +14,20 @@ const {
 } = require('../controllers/user.controllers');
 const { isAdmin, isAuth } = require('../middlewares/auth.middleware');
 
-router.get('/', userGet); //isAdmin
+router.get('/', isAdmin, userGet);
 
-router.get('/logged', userGetLogged); //isAuth
+router.get('/logged', isAuth, userGetLogged);
 
-router.get('/:id', userGetById); //isAdmin
+router.get('/:id', isAdmin, userGetById);
 
-router.put('/edit/logged', [upload.single('img'), uploadToCloudinary], userEditLogged); //isAuth,
+router.put('/edit/logged', [isAuth, upload.single('img'), uploadToCloudinary], userEditLogged);
 
-router.put('/edit/:id', [upload.single('img'), uploadToCloudinary], userEdit); //isAdmin
+router.put('/edit/:id', [isAdmin, upload.single('img'), uploadToCloudinary], userEdit);
 
-router.put('/add-favorite/:creekId', userAddFavorite); //isAuth
+router.put('/add-favorite/:creekId', isAuth, userAddFavorite);
 
-router.put('/delete-favorite/:creekId', userDeleteFavorite); // isAuth
+router.put('/delete-favorite/:creekId', isAuth, userDeleteFavorite);
 
-router.delete('/delete/:id', userDelete); // isAdmin
+router.delete('/delete/:id', isAdmin, userDelete);
 
 module.exports = router;
