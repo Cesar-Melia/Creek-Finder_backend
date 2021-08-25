@@ -16,7 +16,7 @@ const { isAdmin, isAuth } = require('../middlewares/auth.middleware');
 
 router.get('/', userGet); //isAdmin
 
-router.get('/logged', isAuth, userGetLogged);
+router.get('/logged', userGetLogged);
 
 router.get('/:id', isAdmin, userGetById);
 

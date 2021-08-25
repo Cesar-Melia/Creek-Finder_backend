@@ -31,7 +31,6 @@ const userGetLogged = async (req, res, next) => {
 
     return res.status(200).json(req.user);
   } catch (error) {
-    console.log('usuario: ', req.user);
     return next(error);
   }
 };
